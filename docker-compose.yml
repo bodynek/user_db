@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:16
+    container_name: user_db-database
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./migrations:/docker-entrypoint-initdb.d
+
+  app:
+    build: .
+    container_name: user_db-app
+    ports:
+      - "${APP_PORT:-8080}:8080"  # Bind the app port dynamically
+    depends_on:
+      - db
+    environment:
+      APP_PORT: 8080
+      DB_HOST: db
+      DB_USER: myuser
+      DB_PASSWORD: mypassword
+      DB_NAME: mydb
+      DB_PORT: 5432
+    command: ["./user_db"]
