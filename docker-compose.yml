@@ -24,3 +24,4 @@ services:
       DB_NAME: mydb
       DB_PORT: 5432
     command: ["./user_db"]
+    restart: on-failure
