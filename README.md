@@ -17,5 +17,8 @@ Integration testing requires running docker containers on machine. Test will use
 
 You can run test using 
 ```
+go install github.com/swaggo/swag/cmd/swag@latest
+swag init
+go build .
 go test -v --count=1
 ```
